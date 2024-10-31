@@ -1,0 +1,15 @@
+diff --git a/dist/utils.js b/dist/utils.js
+index 34f6c14c0373818f0cf7e372be1dc22a2d3696f9..82c438e932afefb6d270236ff4a1a34a4e0a999f 100644
+--- a/dist/utils.js
++++ b/dist/utils.js
+@@ -592,6 +592,10 @@ function getCompileFn(loaderContext, implementation, apiType) {
+             // for compiling individual files.
+             const compiler = await implementation.initAsyncCompiler();
+ 
++            // Emulates a long wait for compiler creation
++            // so that the loader has time to create several compilers
++            await new Promise(res => setTimeout(res, 100));
++
+             // Check again because awaiting the initialization function
+             // introduces a race condition.
+             if (!sassModernCompilers.has(webpackCompiler)) {
